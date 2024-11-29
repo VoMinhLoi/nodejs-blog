@@ -1,0 +1,30 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+
+    "start": "node --watch --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VoMinhLoi/nodejs-blog.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "minhloi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VoMinhLoi/nodejs-blog/issues"
+  },
+  "homepage": "https://github.com/VoMinhLoi/nodejs-blog#readme",
+  "description": ""
+}

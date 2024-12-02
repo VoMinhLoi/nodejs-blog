@@ -1,8 +1,13 @@
+
 // "start": "node --watch --inspect index.js",
 // "start": "nodenom --inspect index.js",
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
+const path = require('path')
+
+app.use(express.static(path.join(__dirname, 'public')))
+
 // HTTP logger
 app.use(morgan())
 // app.use(morgan('combined'))
@@ -14,7 +19,6 @@ app.engine('handlebars', handlebars.engine({
 }))
 app.set('view engine', 'handlebars')//Thông báo với Express rằng mọi file template (view) sẽ có phần mở rộng .handlebars lúc res.render()
 
-const path = require('path')
 app.set('views', path.join(__dirname, 'resources/views'))
 app.get('/',(request, response)=>response.render('home'))
 app.get('/news',(request, response)=>response.render('news'))

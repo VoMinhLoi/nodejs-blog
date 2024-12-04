@@ -1,7 +1,7 @@
 // "start": "node --watch --inspect index.js",
 // "start": "nodenom --inspect index.js",
 const express = require("express");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const app = express();
 const path = require("path");
 
@@ -10,6 +10,12 @@ const db = require('./config/db')
 db.connect()
 
 app.use(express.static(path.join(__dirname, "public")));
+
+// Phân tích xong gán cho đối tượng request.body
+app.use(express.urlencoded({
+  extended: true
+}));
+// app.use(express.json());
 
 // HTTP logger
 // app.use(morgan())

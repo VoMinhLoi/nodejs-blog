@@ -26,5 +26,11 @@ class CourseController {
             })
             .catch(next)
     }
+    edit(req, res, next){
+        Course.findById(req.params.id)
+            .then(course => {
+                res.render('courses/edit', {course: mongooseToObject(course)})
+            })
+    }
 }
 module.exports = new CourseController

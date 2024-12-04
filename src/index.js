@@ -23,10 +23,15 @@ app.use(express.urlencoded({
 
 // Template engine
 const handlebars = require("express-handlebars");
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 app.engine(
   "handlebars",
   handlebars.engine({
     extname: "hbs",
+    helpers: {
+      sum: (a, b) => a + b,
+  },
   })
 );
 app.set("view engine", "handlebars"); //Thông báo với Express rằng mọi file template (view) sẽ có phần mở rộng .handlebars lúc res.render()

@@ -5,6 +5,10 @@ const morgan = require("morgan");
 const app = express();
 const path = require("path");
 
+// connect DB
+const db = require('./config/db')
+db.connect()
+
 app.use(express.static(path.join(__dirname, "public")));
 
 // HTTP logger

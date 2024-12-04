@@ -6,15 +6,17 @@ const app = express();
 const path = require("path");
 
 // connect DB
-const db = require('./config/db')
-db.connect()
+const db = require("./config/db");
+db.connect();
 
 app.use(express.static(path.join(__dirname, "public")));
 
 // Phân tích xong gán cho đối tượng request.body
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 // app.use(express.json());
 
 // HTTP logger
@@ -23,17 +25,18 @@ app.use(express.urlencoded({
 
 // Template engine
 const handlebars = require("express-handlebars");
-const methodOverride = require('method-override');
-app.use(methodOverride('_method'));
 app.engine(
   "handlebars",
   handlebars.engine({
     extname: "hbs",
     helpers: {
       sum: (a, b) => a + b,
-  },
+    },
   })
 );
+
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 app.set("view engine", "handlebars"); //Thông báo với Express rằng mọi file template (view) sẽ có phần mở rộng .handlebars lúc res.render()
 app.set("views", path.join(__dirname, "resources", "views"));
 

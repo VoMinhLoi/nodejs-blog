@@ -3,9 +3,19 @@ const Course = require("../models/Course")
 class MeController {
 // [GET] /me/stored/courses
     storedCourses(req, res, next){
-        Course.find({})
-            .then(courses => {
-                res.render('me/stored-courses',{courses: multipleMongooseToObject(courses)})
+        // C1
+        // Course.find({})
+        //     .then(async (courses) => {
+        //         // sẽ có lỗi vì server restore của thư viên mongoose-delete đã thực hiện xóa 2 trường delete, deletedAt thay vì cập nhật delete=false
+        //         const deletedCourseNumber = await Course.countDocumentsDeleted()
+        //         res.render('me/stored-courses',{courses: multipleMongooseToObject(courses), deletedCourseNumber})
+        //     })
+        //     .catch(next)
+
+        // C2: nhanh hơn vì sẽ thực thi cả 2 Promise cùng lúc thay vì await đợi
+        Promise.all([Course.countDocumentsDeleted(), Course.find({})])
+            .then(([deletedCourseNumber, courses])=>{
+                res.render('me/stored-courses',{courses: multipleMongooseToObject(courses), deletedCourseNumber})
             })
             .catch(next)
     }

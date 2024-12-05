@@ -1,6 +1,8 @@
 <div class="mt-4">
     <h3>Khóa học của tôi</h3>
-    <a href="/me/trash/courses" class="btn btn-primary">Thùng rác</a>
+    {{#if deletedCourseNumber}}
+      <a href="/me/trash/courses" class="btn btn-primary">Thùng rác ({{deletedCourseNumber}})</a>
+    {{/if}}
     <table class="table mt-4">
         <thead>
             <tr>

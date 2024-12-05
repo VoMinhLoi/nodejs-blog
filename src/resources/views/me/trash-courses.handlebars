@@ -1,6 +1,8 @@
 <div class="mt-4">
-    <h3>Khóa học của tôi</h3>
-    <a href="/me/trash/courses" class="btn btn-primary">Thùng rác</a>
+   <div>
+      <a href="/me/stored/courses">Danh sách khóa học</a>
+      <h3>Khóa học đã xóa</h3>
+    </div>
     <table class="table mt-4">
         <thead>
             <tr>
@@ -18,14 +20,14 @@
                   <td>{{this.level}}</td>
                   <td>{{this.createdAt}}</td>
                   <td>
-                      <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-                      <form method="POST" action="/courses/{{this._id}}?_method=DELETE"  class="btn btn-link btn-danger" ><input type="submit" value="Xóa"/></form>
+                      <form method="POST" action="/courses/{{this._id}}/restore?_method=PATCH"  class="btn btn-link btn-danger" ><input type="submit" value="Khôi phục"/></form>
+                      <form method="POST" action="/courses/{{this._id}}/force?_method=DELETE"  class="btn btn-link btn-danger" ><input type="submit" value="Xóa"/></form>
                       {{!-- <a class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Xóa</a> --}}
                   </td>
               </tr>
             {{else}}
               <tr class="text-center"><td colspan="5">
-                Bạn chưa tạo khóa học nào. Bấm vào <a href="/courses/create">đây</a> để tạo khóa học
+                Thùng rác rỗng. Bấm vào <a href="/me/stored/courses">đây</a> để quay về khóa học của bạn
               </td></tr>
             {{/each}}
         </tbody>

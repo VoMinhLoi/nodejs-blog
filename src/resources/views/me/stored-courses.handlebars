@@ -18,10 +18,44 @@
                 <td>{{this.createdAt}}</td>
                 <td>
                     <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-                    <a href="" class="btn btn-link">Xóa</a>
+                    <form method="POST" action="/courses/{{this._id}}?_method=DELETE"  class="btn btn-link btn-danger" ><input type="submit" value="Xóa"/></form>
+                    {{!-- <a class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Xóa</a> --}}
                 </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+{{!-- <form name="delete-course-form" method="POST"></form>
+<div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa khóa học?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa khóa học này?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
+      </div>
+    </div>
+  </div>
+</div> --}}
+<script>
+    var courseId
+    var formDelete = document.querySelector('.delete-course-form')
+    $('#delete-course-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            courseId = button.data('id');
+        });
+    var deleteBtn = document.getElementById('btn-delete-course')
+    deleteBtn.onclick = () => {
+        formDelete.action = '/courses/' + courseId + '?_method=DELETE'
+        formDelete.submit()
+    }
+</script>

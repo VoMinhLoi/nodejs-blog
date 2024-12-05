@@ -64,6 +64,11 @@ class CourseController {
       .then(() => res.redirect('back'))
       .catch(next)
   }
-
+  deleteAll(req, res, next){
+    const listIds = req.body.listIds.split(',') // 6751492298e442f23b692679,6751494ce0d1fec8710eb608 => [id1, id2]
+    Course.delete({ _id: {$in: listIds} })
+    .then(() => res.redirect('back'))
+    .catch(next);
+  }
 }
 module.exports = new CourseController();

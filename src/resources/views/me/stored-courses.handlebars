@@ -15,7 +15,7 @@
         <tbody>
             {{#each courses}}
               <tr>
-                  <th scope="row">{{sum @index 1}}</th>
+                  <th scope="row" data-id="{{this._id}}" class="td-id-course">{{sum @index 1}}</th>
                   <td>{{this.name}}</td>
                   <td>{{this.level}}</td>
                   <td>{{this.createdAt}}</td>
@@ -53,16 +53,19 @@
     </div>
   </div>
 </div> --}}
+<form method="POST" action="/courses/handle-form-action?_method=DELETE" class="form-delete-all"><input type="submit" value="Xóa tất cả"/></form>
 <script>
-    var courseId
-    var formDelete = document.querySelector('.delete-course-form')
-    $('#delete-course-modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            courseId = button.data('id');
-        });
-    var deleteBtn = document.getElementById('btn-delete-course')
-    deleteBtn.onclick = () => {
-        formDelete.action = '/courses/' + courseId + '?_method=DELETE'
-        formDelete.submit()
-    }
+  const formDeleteAll = document.querySelector('.form-delete-all')
+  const listIdTdHtml = document.querySelectorAll('th[class="td-id-course"]')
+  formDeleteAll.onsubmit = (e)=>{
+    e.preventDefault()
+    const listId = Array.from(listIdTdHtml).map((node) => {
+      return formDeleteAll.data = node.dataset.id
+    });
+    const hiddenInput  = document.createElement('input')
+    hiddenInput.name = 'listIds'
+    hiddenInput.value = listId
+    formDeleteAll.appendChild(hiddenInput)
+    formDeleteAll.submit()
+  }
 </script>

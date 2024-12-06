@@ -11,9 +11,15 @@ class MeController {
         //         res.render('me/stored-courses',{courses: multipleMongooseToObject(courses), deletedCourseNumber})
         //     })
         //     .catch(next)
-
+        let courseModel = Course.find({})
+        // if(req.query.hasOwnProperty('_sort')){
+        if(res.locals._sort.column)
+            courseModel = courseModel.sort({
+                [res.locals._sort.column]: res.locals._sort.type
+            })
+        // }
         // C2: nhanh hơn vì sẽ thực thi cả 2 Promise cùng lúc thay vì await đợi
-        Promise.all([Course.countDocumentsDeleted(), Course.find({})])
+        Promise.all([Course.countDocumentsDeleted(), courseModel])
             .then(([deletedCourseNumber, courses])=>{
                 res.render('me/stored-courses',{courses: multipleMongooseToObject(courses), deletedCourseNumber})
             })

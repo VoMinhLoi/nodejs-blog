@@ -1,13 +1,18 @@
 <div class="mt-4">
     <h3>Khóa học của tôi</h3>
-    {{#if deletedCourseNumber}}
+    {{!-- {{#if deletedCourseNumber}}
       <a href="/me/trash/courses" class="btn btn-primary">Thùng rác ({{deletedCourseNumber}})</a>
-    {{/if}}
+    {{/if}} --}}
     <table class="table mt-4">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Tên khóa học</th>
+                <th scope="col">
+                  Tên khóa học 
+                  <a class="ml-1" href="?_sort&column=name&type=desc">
+                    {{_sort.type}}
+                  </a>
+                </th>
                 <th scope="col">Trình độ</th>
                 <th scope="col" colspan="2">Thời gian tạo</th>
             </tr>
@@ -21,7 +26,7 @@
                   <td>{{this.createdAt}}</td>
                   <td>
                       <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-                      <form method="POST" action="/courses/{{this._id}}?_method=DELETE"  class="btn btn-link btn-danger" ><input type="submit" value="Xóa"/></form>
+                      {{!-- <form method="POST" action="/courses/{{this._id}}?_method=DELETE"  class="btn btn-link btn-danger" ><input type="submit" value="Xóa"/></form> --}}
                       {{!-- <a class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Xóa</a> --}}
                   </td>
               </tr>
@@ -57,7 +62,7 @@
 <script>
   const formDeleteAll = document.querySelector('.form-delete-all')
   const listIdTdHtml = document.querySelectorAll('th[class="td-id-course"]')
-  formDeleteAll.onsubmit = (e)=>{
+  formDeleteAll.onsubmit = (e) => {
     e.preventDefault()
     const listId = Array.from(listIdTdHtml).map((node) => {
       return formDeleteAll.data = node.dataset.id

@@ -19,6 +19,9 @@ app.use(
 );
 // app.use(express.json());
 
+const SortMiddleware = require("./app/middlewares/SortMiddleware");
+app.use(SortMiddleware)
+
 // HTTP logger
 // app.use(morgan())
 // app.use(morgan('combined'))
@@ -31,6 +34,9 @@ app.engine(
     extname: "hbs",
     helpers: {
       sum: (a, b) => a + b,
+      ifEquals: (arg1, arg2, options) => {
+        return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+      }
     },
   })
 );
@@ -41,9 +47,9 @@ app.set("view engine", "handlebars"); //Thông báo với Express rằng mọi f
 app.set("views", path.join(__dirname, "resources", "views"));
 
 const route = require("./routes");
+
 // Routes Init
 route(app);
-
 const port = 3000;
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
